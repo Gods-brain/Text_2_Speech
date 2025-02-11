@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render
 from django.http import JsonResponse
-from gtts import gTTS
+from gtts import gTTS, gTTSError
 import io
 import base64
 import tempfile
@@ -79,13 +79,29 @@ class MainPageView(View):
         text_content = get_text(text, file)
 
         if text_content:
-            # Generate the audio using gTTS
-            audio_file = gTTS(text=text_content, lang=get_lang(lang), slow=is_slow_speed(speed), tld="com")
-            audio_buffer = io.BytesIO()
-            audio_file.write_to_fp(audio_buffer)
-            audio_buffer.seek(0)
-            audio_base64 = base64.b64encode(audio_buffer.read()).decode('utf-8')
+            try:
+                # Generate the audio using gTTS
+                audio_file = gTTS(
+                    text=text_content,
+                    lang=get_lang(lang),
+                    slow=is_slow_speed(speed),
+                    tld="com"
+                )
+                audio_buffer = io.BytesIO()
+                audio_file.write_to_fp(audio_buffer)
+                audio_buffer.seek(0)
+                audio_base64 = base64.b64encode(audio_buffer.read()).decode('utf-8')
 
-            return JsonResponse({'audio_base64': audio_base64}, status=200)
+                return JsonResponse({'audio_base64': audio_base64}, status=200)
+
+            except gTTSError as e:
+                # Handle gTTS-specific errors (including network errors)
+                return JsonResponse({'error_msg': f"gTTS error: {str(e)}"}, status=403)
+
+            except Exception as e:
+                # Handle other unexpected errors
+                return JsonResponse({'error_msg': f"An error occurred: {str(e)}"}, status=403)
+
         else:
+            # Return 403 if no text content is provided
             return JsonResponse({'error_msg': "You didn't input any text or text document"}, status=403)
