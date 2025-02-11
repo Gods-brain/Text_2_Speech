@@ -39,10 +39,7 @@
         <h1 data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">TEXT TO SPEECH</h1>
 
         <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
-            <p>We will help you to convert any of your
-                Text document to audio file for you
-                experience relative ease in you daily
-                life.
+            <p>"We assist in converting your text or text documents into audio files, offering you greater convenience and ease in your daily life."
             </p>
         </div>
 
@@ -77,13 +74,16 @@
                     Fast
                     <input type="radio" name="speed" value="fast" id="fast" checked>
                 </div>
-
             </div>
 
             <button type="button" id="convert_btn">CONVERT</button>
 
+            <!-- Audio loader -->
+            <div id="audio_loader" class="audio_loader" style="display: none;"></div>
         </form>
 
+
+        <!-- Audio container -->
         <div class="audio-container" id="audio_container">
 
         </div>
@@ -92,17 +92,17 @@
 
             <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
                 <img src="{% static 'img/txt_icon.png' %}" alt="txt_icon">
-                <p>You can easily convert your text document to speech</p>
+                <p>Effortlessly convert your text documents into speech</p>
             </div>
 
             <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
                 <img src="{% static 'img/docx_icon.png' %}" alt="docx_icon">
-                <p>Docx document; well know as ms word document can also be converted to speech</p>
+                <p>DOCX files, commonly known as Microsoft Word documents, can also be transformed into speech.</p>
             </div>
 
             <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
                 <img src="{% static 'img/pdf_icon.png' %}" alt="pdf_icon">
-                <p>Pdf as well can also be converted to speech with ease</p>
+                <p>PDF files can likewise be converted to speech seamlessly.</p>
             </div>
 
         </div>
@@ -116,17 +116,17 @@
 
             <div class="hw_use">
                 <img src="{% static 'img/input.jpg' %}" alt="input" id="hw_img" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
-                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Firts you either input your text or you import a text file</p>
+                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">First, you can either manually input your text or import a text file directly into the platform.</p>
             </div>
 
             <div class="hw_use" style="flex-wrap: wrap-reverse;">
-                <p id="hw_p" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Choose the Language of your choice, and pick whether you want the speech to be Slowed or Fastened. If your Language choice was English; you have ability to choose an accent of your choice.</p>
+                <p id="hw_p" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Next, select your preferred language and adjust the speech speed to either slowed or fast-paced.</p>
                 <img src="{% static 'img/setting.jpg' %}" alt="setting" id="set" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
             </div>
 
             <div class="hw_use">
                 <img src="{% static 'img/convert.jpg' %}" alt="convert" id="hw_img" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
-                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Now you are ready to convert your text to speech. All you have to do is to click the convert button to get your audio file to listen to and download</p>
+                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Once set up, you’re ready to convert your text to speech. Simply click the convert button to generate your audio file, which you can then listen to or download instantly.</p>
             </div>
 
         </div>
@@ -176,13 +176,14 @@
 
 window.addEventListener("load", function() {
     document.getElementById("loader").style.display = "none";
+    document.getElementById("audio_loader").style.display = "none";
 });
 
 const button = document.getElementById('convert_btn');
 
 button.addEventListener("click", function () {
-
-
+    // Show the audio loader
+    document.getElementById('audio_loader').style.display = 'block !important';
 
     const form = document.getElementById('control_form');
     const formdata = new FormData(form);
@@ -192,6 +193,9 @@ button.addEventListener("click", function () {
     xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
 
     xhr.onload = function () {
+        // Hide the audio loader
+        document.getElementById('audio_loader').style.display = 'none';
+
         const audioContainer = document.getElementById('audio_container');
         audioContainer.innerHTML = '';
 
@@ -204,32 +208,25 @@ button.addEventListener("click", function () {
             audio.src = `data:audio/mp3;base64,${audioBase64}`;
 
             audioContainer.appendChild(audio);
-
-
         } else if (xhr.status === 403) {
             const response = JSON.parse(xhr.responseText);
             const error_msg = document.createElement('p');
             error_msg.textContent = response.error_msg;
             audioContainer.appendChild(error_msg);
-
-
         }
     };
 
     xhr.onerror = function () {
-
+        // Hide the audio loader on error
+        document.getElementById('audio_loader').style.display = 'none';
 
         console.error("An error occurred during the request.");
-
-
         const audioContainer = document.getElementById('audio_container');
         audioContainer.innerHTML = "<p>Sorry, an error occurred. Please try again later.</p>";
-    }
-
+    };
 
     xhr.send(formdata);
 });
-
 
     </script>
 </body>
