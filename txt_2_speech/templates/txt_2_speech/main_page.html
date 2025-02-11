@@ -1,0 +1,236 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{% static 'img/txt2speech_logo.png' %}">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text_2_Speech</title>
+    <link rel="stylesheet" href="{% static 'txt_2_speech/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'txt_2_speech/style.css' %}">
+</head>
+<body>
+
+  <div id="loader">
+    <img src="{% static 'img/txt2speech_logo.png' %}" alt="Logo">
+  </div>
+
+    <nav>
+        <div class="navbar">
+            <img src="{% static 'img/txt2speech_logo.png' %}" alt="txt2speech_logo" id="navLogo">
+            <ul>
+                <li><a href="#ft"><b>Features</b></a></li>
+                <li><a href="#instruct"><b>About</b></a></li>
+                <li><a href="#"><b>Contact</b></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" id="top">
+
+        <img src="{% static 'img/text.png' %}" alt="text" class="animated" id="txt_icon" data-aos="flip-up" data-aos-duration="2000" data-aos-delay="500" data-aos-easing="ease-in-out">
+        <img src="{% static 'img/success.png' %}" alt="success" class="animated" id="success_icon" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="500" data-aos-easing="ease-in-out">
+        <img src="{% static 'img/audio.png' %}" alt="audio" class="animated" id="audio_icon" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="500" data-aos-easing="ease-in-out">
+
+
+        <h1 data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">TEXT TO SPEECH</h1>
+
+        <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+            <p>We will help you to convert any of your
+                Text document to audio file for you
+                experience relative ease in you daily
+                life.
+            </p>
+        </div>
+
+
+        <form action="#" id="control_form" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="CONTENT"></textarea>
+
+            <div id="file">
+                <span style="display: block; margin-right: 10px;">Import Files</span>
+                <input type="file" name="file" id="file_input">
+            </div>
+
+            <div class="controller">
+                <div class="controls">
+                    <select name="lang" id="lang">
+                        <option value="lang" selected>Language</option>
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                        <option value="es">Spanish</option>
+                        <option value="ja">Japanese</option>
+                        <option value="zh-CN">Chinese</option>
+                        <option value="ko">Korean</option>
+                    </select>
+                </div>
+
+                <div class="controls">
+                    Slow
+                    <input type="radio" name="speed" value="slow" id="slow">
+                </div>
+
+                <div class="controls">
+                    Fast
+                    <input type="radio" name="speed" value="fast" id="fast" checked>
+                </div>
+
+            </div>
+
+            <button type="button" id="convert_btn">CONVERT</button>
+
+        </form>
+
+        <div class="audio-container" id="audio_container">
+
+        </div>
+
+        <div class="features" id="ft">
+
+            <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <img src="{% static 'img/txt_icon.png' %}" alt="txt_icon">
+                <p>You can easily convert your text document to speech</p>
+            </div>
+
+            <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <img src="{% static 'img/docx_icon.png' %}" alt="docx_icon">
+                <p>Docx document; well know as ms word document can also be converted to speech</p>
+            </div>
+
+            <div id="ft_speech" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <img src="{% static 'img/pdf_icon.png' %}" alt="pdf_icon">
+                <p>Pdf as well can also be converted to speech with ease</p>
+            </div>
+
+        </div>
+
+        <div id="instruct">
+
+            <div class="in_h3" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <h3>HOW TO CONVERT YOUR TEXT TO SPEECH</h3>
+            </div>
+
+
+            <div class="hw_use">
+                <img src="{% static 'img/input.jpg' %}" alt="input" id="hw_img" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Firts you either input your text or you import a text file</p>
+            </div>
+
+            <div class="hw_use" style="flex-wrap: wrap-reverse;">
+                <p id="hw_p" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Choose the Language of your choice, and pick whether you want the speech to be Slowed or Fastened. If your Language choice was English; you have ability to choose an accent of your choice.</p>
+                <img src="{% static 'img/setting.jpg' %}" alt="setting" id="set" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+            </div>
+
+            <div class="hw_use">
+                <img src="{% static 'img/convert.jpg' %}" alt="convert" id="hw_img" data-aos="slide-left" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">
+                <p id="hw_p" data-aos="slide-right" data-aos-duration="2000" data-aos-delay="100" data-aos-easing="ease-in-out">Now you are ready to convert your text to speech. All you have to do is to click the convert button to get your audio file to listen to and download</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+
+        <div class="footer_flex">
+           <div class="footer_content" id="site_name">
+                <img src="{% static 'img/txt2speech_logo.png' %}" alt="txt2speech_logo">
+                <h2>TEXT TO SPEECH</h2>
+                <p>This site will help you to convert your text or text file into speech with relative ease.</p>
+            </div>
+
+            <div class="footer_content" id="contact">
+                <h3>Contact</h3>
+                <ul>
+                    <li><b>Address:</b> Dalemo, Sango Ota, Ogun State</li>
+                    <li><b>E-Mail:</b> kingleyumekwe02@gmail.com</li>
+                    <li><b>Telephone:</b> 07042637659</li>
+                </ul>
+            </div>
+
+            <div class="footer_content" id="social_handles">
+                <h3>Reach Me On</h4>
+                <ul>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">X-Twitter</a></li>
+                    <li><a href="">LinkedIn</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Whatsapp</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="last_footer">
+            <a href="#top">Back To Top</a><br>
+            <small>&copy 2025 TEXT TO SPEECH. All Rights Reserved.</small>
+        </div>
+
+    </footer>
+
+    <script src="{% static 'txt_2_speech/aos.js' %}"></script>
+    <script>
+        AOS.init();
+
+window.addEventListener("load", function() {
+    document.getElementById("loader").style.display = "none";
+});
+
+const button = document.getElementById('convert_btn');
+
+button.addEventListener("click", function () {
+
+
+
+    const form = document.getElementById('control_form');
+    const formdata = new FormData(form);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+
+    xhr.onload = function () {
+        const audioContainer = document.getElementById('audio_container');
+        audioContainer.innerHTML = '';
+
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            const audioBase64 = response.audio_base64;
+
+            const audio = document.createElement('audio');
+            audio.controls = true;
+            audio.src = `data:audio/mp3;base64,${audioBase64}`;
+
+            audioContainer.appendChild(audio);
+
+
+        } else if (xhr.status === 403) {
+            const response = JSON.parse(xhr.responseText);
+            const error_msg = document.createElement('p');
+            error_msg.textContent = response.error_msg;
+            audioContainer.appendChild(error_msg);
+
+
+        }
+    };
+
+    xhr.onerror = function () {
+
+
+        console.error("An error occurred during the request.");
+
+
+        const audioContainer = document.getElementById('audio_container');
+        audioContainer.innerHTML = "<p>Sorry, an error occurred. Please try again later.</p>";
+    }
+
+
+    xhr.send(formdata);
+});
+
+
+    </script>
+</body>
+</html>
