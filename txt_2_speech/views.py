@@ -96,7 +96,7 @@ class MainPageView(View):
 
             except gTTSError as e:
                 # Handle gTTS-specific errors (including network errors)
-                return JsonResponse({'error_msg': f"gTTS error: {str(e)}"}, status=403)
+                return JsonResponse({'error_msg': "Ooops!, no Network. Please refresh and try again."}, status=403)
 
             except Exception as e:
                 # Handle other unexpected errors
